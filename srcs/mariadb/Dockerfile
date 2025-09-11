@@ -6,10 +6,10 @@ RUN apk update && apk add --no-cache \
     mariadb-client
 
 COPY ./conf/my.cnf /etc/my.cnf.d/
-COPY ./tools/mariadb_setup.sh /usr/local/bin/
+COPY ./tools/entrypoint-db.sh /usr/local/bin/
 
-RUN chmod +x /usr/local/bin/mariadb_setup.sh
+RUN chmod +x /usr/local/bin/entrypoint-db.sh
 
 EXPOSE 3306
 
-ENTRYPOINT ["/usr/local/bin/mariadb_setup.sh"]
+ENTRYPOINT ["/usr/local/bin/entrypoint-db.sh"]
