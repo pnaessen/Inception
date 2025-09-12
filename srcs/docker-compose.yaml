@@ -1,0 +1,32 @@
+services:
+  mariadb:
+    build: ./mariadb
+    container_name: mariadb
+    environment:
+      - MYSQL_ROOT_USER=${MYSQL_ROOT_USER}
+      - MYSQL_ROOT_PWD=${MYSQL_ROOT_PWD}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_USER_PWD=${MYSQL_USER_PWD}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+    volumes:
+      - mariadb_data:/var/lib/mysql  
+    # - /home/pnaessen/data:/var/lib/mysql
+    networks:
+      - inception
+    restart: always
+
+  nginx:
+    build: ./nginx
+    container_name: nginx
+    ports:
+      - "443:443"
+    networks:
+      - inception
+    restart: always
+
+volumes:
+  mariadb_data:
+
+networks:
+  inception:
+

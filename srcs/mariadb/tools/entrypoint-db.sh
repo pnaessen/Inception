@@ -42,7 +42,7 @@ DELETE FROM mysql.db WHERE Db='test' OR Db LIKE 'test_%';
 FLUSH PRIVILEGES;
 EOF
 
-mariadb-admin -u root -p"$MYSQL_USER_PWD" shutdown
+mariadb-admin -u root -p"$MYSQL_ROOT_PWD" shutdown
 wait $MARIADB_PID
 
 exec mariadbd-safe --user=mysql --datadir=/var/lib/mysql
