@@ -1,0 +1,12 @@
+NGINX :
+    curl -k -v https://localhost:443
+    curl -k https://localhost:443
+    docker exec nginx nginx -t
+
+MariaDB : 
+    docker exec -it mariadb mariadb -p
+    docker exec -it mariadb mariadb -u wpuser -p
+    SHOW DATABASES;
+    USE wordpress;
+    SHOW TABLE;
+
