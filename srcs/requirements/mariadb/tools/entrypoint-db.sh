@@ -1,7 +1,8 @@
 #!/bin/sh
 
-if [ -z "$MYSQL_USER" ] || [ -z "$MYSQL_USER_PWD" ] || [ -z "$MYSQL_DATABASE" ]; then
-    echo "Error .env need (MYSQL_USER, MYSQL_PASSWORD, MYSQL_DATABASE)"
+if [ -z "$MYSQL_USER" ] || [ -z "$MYSQL_USER_PWD" ] || [ -z "$MYSQL_DATABASE" ] || [ -z "$MYSQL_ROOT_USER" ] || [ -z "$MYSQL_ROOT_PWD" ]; then
+    echo "Error: Missing required environment variables:"
+    echo "  MYSQL_USER, MYSQL_USER_PWD, MYSQL_DATABASE, MYSQL_ROOT_USER, MYSQL_ROOT_PWD"
     exit 1
 fi
 
