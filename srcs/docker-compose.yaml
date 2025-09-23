@@ -5,7 +5,7 @@ services:
     env_file:
       - .env
     volumes:
-      - mariadb_data:/var/lib/mysql
+      - /home/${USER}/data/mariadb:/var/lib/mysql
     networks:
       - inception
     restart: unless-stopped
@@ -29,7 +29,7 @@ services:
   #     - WP_USER_EMAIL=${WP_USER_EMAIL}
   #     - WP_USER_PASSWORD=${WP_USER_PASSWORD}
   #   volumes:
-  #     - wordpress_data:/var/www/html
+  #     - /home/${USER}/data/wordpress:/var/www/html
   #   networks:
   #     - inception
   #   restart: unless-stopped
@@ -42,7 +42,7 @@ services:
     ports:
       - "443:443"
     volumes:
-      - wordpress_data:/var/www/html
+      - /home/${USER}/data/wordpress:/var/www/html
     networks:
       - inception
     restart: unless-stopped
@@ -50,9 +50,4 @@ services:
 networks:
   inception:
     driver: bridge
-
-volumes:
-  mariadb_data:
-    driver: local
-  wordpress_data:
-    driver: local
+    
