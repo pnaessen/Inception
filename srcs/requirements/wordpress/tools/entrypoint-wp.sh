@@ -32,6 +32,7 @@ if [ ! -f wp-config.php ]; then
         --admin_email=$WP_ADMIN_EMAIL
 
     wp user create --allow-root \
+        --role=author \
         $WP_USER \
         $WP_USER_EMAIL \
         --user_pass=$WP_USER_PASSWORD
