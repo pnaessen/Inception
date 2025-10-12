@@ -36,6 +36,25 @@ if [ ! -f wp-config.php ]; then
         $WP_USER \
         $WP_USER_EMAIL \
         --user_pass=$WP_USER_PASSWORD
+
+    i=1
+    while [ $i -le 60 ]; do
+        if nc -z ${REDIS_HOST:-redis} ${REDIS_PORT:-6379}; then
+            break
+        fi
+        sleep 1
+        i=$((i + 1))
+    done
+
+    wp config set --allow-root WP_CACHE true --raw
+    wp config set --allow-root WP_REDIS_HOST ${REDIS_HOST:-redis}
+    wp config set --allow-root WP_REDIS_PORT ${REDIS_PORT:-6379} --raw
+    wp config set --allow-root WP_REDIS_TIMEOUT 1 --raw
+    wp config set --allow-root WP_REDIS_READ_TIMEOUT 1 --raw
+    wp config set --allow-root WP_REDIS_DATABASE 0 --raw
+
+    wp plugin install --allow-root redis-cache --activate
+    wp redis enable --allow-root || true
 fi
 
 mkdir -p /run/php

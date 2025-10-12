@@ -10,11 +10,21 @@ services:
       - inception
     restart: unless-stopped
 
+  redis:
+    build: ./requirements/redis
+    container_name: redis
+    volumes:
+      - /home/${USER}/data/redis:/var/lib/redis
+    networks:
+      - inception
+    restart: unless-stopped
+
   wordpress:
     build: ./requirements/wordpress
     container_name: wordpress
     depends_on:
       - mariadb
+      - redis
     env_file:
       - .env
     environment:
@@ -22,6 +32,8 @@ services:
       - DB_NAME=${MYSQL_DATABASE}
       - DB_USER=${MYSQL_USER}
       - DB_PASSWORD=${MYSQL_USER_PWD}
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
     volumes:
       - /home/${USER}/data/wordpress:/var/www/html
     networks:
