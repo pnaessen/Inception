@@ -45,10 +45,20 @@ services:
     container_name: nginx
     depends_on:
       - wordpress
+      - adminer
     ports:
       - "443:443"
     volumes:
       - /home/${USER}/data/wordpress:/var/www/html
+    networks:
+      - inception
+    restart: unless-stopped
+
+  adminer:
+    build: ./requirements/adminer
+    container_name: adminer
+    depends_on:
+      - mariadb
     networks:
       - inception
     restart: unless-stopped
