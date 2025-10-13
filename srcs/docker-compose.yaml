@@ -10,21 +10,21 @@ services:
       - inception
     restart: unless-stopped
 
-  redis:
-    build: ./requirements/redis
-    container_name: redis
-    volumes:
-      - /home/${USER}/data/redis:/var/lib/redis
-    networks:
-      - inception
-    restart: unless-stopped
+  # redis:
+  #   build: ./requirements/redis
+  #   container_name: redis
+  #   volumes:
+  #     - /home/${USER}/data/redis:/var/lib/redis
+  #   networks:
+  #     - inception
+  #   restart: unless-stopped
 
   wordpress:
     build: ./requirements/wordpress
     container_name: wordpress
     depends_on:
       - mariadb
-      - redis
+      # - redis
     env_file:
       - .env
     environment:
