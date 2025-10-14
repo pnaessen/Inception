@@ -15,6 +15,9 @@ RUN apk update && apk add --no-cache \
     php82-iconv \
     php82-tokenizer \
     php82-redis \
+    redis \
+    wget \
+    curl \
     mariadb-client \
     netcat-openbsd \
     wget

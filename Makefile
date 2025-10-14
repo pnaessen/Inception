@@ -4,7 +4,6 @@ all: setup
 setup:
 	@mkdir -p /home/$(USER)/data/mariadb
 	@mkdir -p /home/$(USER)/data/wordpress
-
 down:
 	cd srcs && docker-compose down
 

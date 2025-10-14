@@ -36,6 +36,11 @@ if [ ! -f wp-config.php ]; then
         $WP_USER \
         $WP_USER_EMAIL \
         --user_pass=$WP_USER_PASSWORD
+
+    # wp plugin install redis-cache --activate --allow-root
+    # wp config set WP_REDIS_HOST redis --allow-root
+    # wp config set WP_REDIS_PORT 6379 --raw --allow-root
+    # wp redis enable --allow-root
 fi
 
 mkdir -p /run/php
