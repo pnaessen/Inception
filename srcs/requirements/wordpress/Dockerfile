@@ -24,14 +24,16 @@ RUN apk update && apk add --no-cache \
 
 RUN ln -s /usr/bin/php82 /usr/bin/php
 
+
 RUN sed -i 's/memory_limit = 128M/memory_limit = 512M/g' /etc/php82/php.ini
 
-RUN wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar && \
-    chmod +x wp-cli.phar && \
-    mv wp-cli.phar /usr/local/bin/wp
+RUN cd /usr/local/bin && \
+    curl -o wp -L https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar && \
+    chmod +x wp
+RUN cd -
 
-RUN sed -i 's/listen = 127.0.0.1:9000/listen = 9000/g' /etc/php82/php-fpm.d/www.conf && \
-    sed -i 's/;clear_env = no/clear_env = no/g' /etc/php82/php-fpm.d/www.conf
+
+COPY ./conf/www.conf /etc/php82/php-fmd.d/.
 
 COPY ./tools/entrypoint-wp.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/entrypoint-wp.sh
@@ -39,5 +41,7 @@ RUN chmod +x /usr/local/bin/entrypoint-wp.sh
 WORKDIR /var/www/html
 
 EXPOSE 9000
+
+RUN adduser -S -D -G www-data www
 
 ENTRYPOINT ["/usr/local/bin/entrypoint-wp.sh"]

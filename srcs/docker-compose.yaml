@@ -5,7 +5,7 @@ services:
     env_file:
       - .env
     volumes:
-      - /home/${USER}/data/mariadb:/var/lib/mysql
+      - db-data:/var/lib/mysql
     networks:
       - inception
     restart: unless-stopped
@@ -33,7 +33,7 @@ services:
       - REDIS_HOST=redis
       - REDIS_PORT=6379
     volumes:
-      - /home/${USER}/data/wordpress:/var/www/html
+      - www-data:/var/www/html
     networks:
       - inception
     restart: unless-stopped
@@ -47,7 +47,7 @@ services:
     ports:
       - "443:443"
     volumes:
-      - /home/${USER}/data/wordpress:/var/www/html
+      - www-data:/var/www/html
     networks:
       - inception
     restart: unless-stopped
@@ -64,3 +64,15 @@ services:
 networks:
   inception:
     driver: bridge
+
+volumes:
+  www-data:
+    driver_opts:
+      type: local
+      device: /home/${USER}/data/www-data
+      o: bind
+  db-data:
+    driver_opts:
+      type: none
+      device: /home/${USER}/data/data-db
+      o: bind
