@@ -4,11 +4,19 @@ all: setup
 setup:
 	@mkdir -p /home/$(USER)/data/data-db
 	@mkdir -p /home/$(USER)/data/www-data
+
+up: setup
+	cd srcs && docker-compose up
+
 down:
 	cd srcs && docker-compose down
 
-clean:
-	cd srcs && docker-compose down
+stop:
+	cd srcs && docker-compose stop
+
+restart: down up
+
+clean: down
 	docker system prune -af
 
 fclean: clean
@@ -16,4 +24,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all setup down clean fclean re
+.PHONY: all setup up down stop restart clean fclean re
