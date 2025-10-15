@@ -18,6 +18,15 @@ if [ ! -f wp-config.php ]; then
         i=$((i + 1))
     done
 
+    i=1
+    while [ $i -le 30 ]; do
+        if nc -z redis 6379; then
+            break
+        fi
+        sleep 2
+        i=$((i + 1))
+    done
+
     wp config create --allow-root \
         --dbname=$DB_NAME \
         --dbuser=$DB_USER \
@@ -37,13 +46,14 @@ if [ ! -f wp-config.php ]; then
         $WP_USER_EMAIL \
         --user_pass=$WP_USER_PASSWORD
 
-    # wp plugin install redis-cache --activate --allow-root
-    # wp config set WP_REDIS_HOST redis --allow-root
-    # wp config set WP_REDIS_PORT 6379 --raw --allow-root
-    # wp redis enable --allow-root
+    wp plugin install redis-cache --activate --allow-root
+    wp config set WP_REDIS_HOST redis --allow-root
+    wp config set WP_REDIS_PORT 6379 --raw --allow-root
+    wp redis enable --allow-root
 fi
 
 mkdir -p /run/php
-chown -R nobody:nobody /var/www/html
+chown -R www-data:www-data /var/www/html
+chmod -R 755 /var/www/html
 
 exec /usr/sbin/php-fpm82 -F -R
