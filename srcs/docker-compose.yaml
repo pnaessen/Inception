@@ -7,14 +7,14 @@ services:
     volumes:
       - db-data:/var/lib/mysql
     networks:
-      - inception
+      - backend
     restart: unless-stopped
 
   redis:
     build: ./requirements/redis
     container_name: redis
     networks:
-      - inception
+      - backend
     restart: unless-stopped
 
   wordpress:
@@ -35,7 +35,7 @@ services:
     volumes:
       - www-data:/var/www/html
     networks:
-      - inception
+      - backend
     restart: unless-stopped
 
   nginx:
@@ -49,7 +49,8 @@ services:
     volumes:
       - www-data:/var/www/html
     networks:
-      - inception
+      - frontend
+      - backend
     restart: unless-stopped
 
   adminer:
@@ -58,12 +59,24 @@ services:
     depends_on:
       - mariadb
     networks:
-      - inception
+      - frontend
+      - backend
+    restart: unless-stopped
+
+  static-site:
+    build: ./requirements/site
+    container_name: static-site
+    networks:
+      - frontend
     restart: unless-stopped
 
 networks:
-  inception:
+  frontend:
     driver: bridge
+    name: inception-frontend
+  backend:
+    driver: bridge
+    name: inception-backend
 
 volumes:
   www-data:

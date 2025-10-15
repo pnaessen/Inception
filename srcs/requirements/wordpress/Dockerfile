@@ -33,7 +33,8 @@ RUN cd /usr/local/bin && \
 RUN cd -
 
 
-COPY ./conf/www.conf /etc/php82/php-fmd.d/.
+COPY ./conf/www.conf /etc/php82/php-fpm.d/www.conf
+
 
 COPY ./tools/entrypoint-wp.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/entrypoint-wp.sh

@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🐳 Le Distributeur de Compliments Docker 🎰</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="stars"></div>
+    <div class="stars2"></div>
+    <div class="stars3"></div>
+
+    <div class="container">
+        <header class="wobble">
+            <h1 class="glitch" data-text="🐳 DOCKER COMPLIMENT MACHINE 🎰">🐳 DOCKER COMPLIMENT MACHINE 🎰</h1>
+            <p class="subtitle rainbow">Le seul site qui valorise vraiment vos conteneurs !</p>
+        </header>
+
+        <div class="machine">
+            <div class="machine-top">
+                <div class="light light1"></div>
+                <div class="light light2"></div>
+                <div class="light light3"></div>
+            </div>
+
+            <div class="screen">
+                <div id="compliment" class="compliment-text">
+                    Clique sur le bouton pour recevoir un compliment pour ton Dockerfile ! 🎉
+                </div>
+                <div class="whale-container">
+                    <div class="whale">🐳</div>
+                </div>
+            </div>
+
+            <button id="generateBtn" class="big-button">
+                <span class="button-text">GÉNÉRATEUR DE COMPLIMENTS</span>
+                <span class="button-glow"></span>
+            </button>
+
+            <div class="counter-container">
+                <span class="counter-label">Compliments distribués :</span>
+                <span id="counter" class="counter">0</span>
+            </div>
+        </div>
+
+        <div class="docker-friends">
+            <div class="friend friend1">
+                <div class="container-icon">📦</div>
+                <div class="speech-bubble">FROM awesome:latest</div>
+            </div>
+            <div class="friend friend2">
+                <div class="container-icon">🎁</div>
+                <div class="speech-bubble">RUN echo "Cool!"</div>
+            </div>
+            <div class="friend friend3">
+                <div class="container-icon">🚀</div>
+                <div class="speech-bubble">EXPOSE 9999</div>
+            </div>
+        </div>
+
+        <div class="fun-facts">
+            <h2 class="bounce">📚 Le Saviez-tu Docker Edition 📚</h2>
+            <div class="facts-grid">
+                <div class="fact-card">
+                    <div class="fact-emoji">🐋</div>
+                    <p>Une baleine Docker peut porter 17 milliards de conteneurs (mais seulement dans les rêves)</p>
+                </div>
+                <div class="fact-card">
+                    <div class="fact-emoji">🎪</div>
+                    <p>Docker a été inventé par des pingouins qui voulaient voyager léger</p>
+                </div>
+                <div class="fact-card">
+                    <div class="fact-emoji">🌮</div>
+                    <p>Le conteneur le plus populaire au monde ? Celui des tacos virtuels !</p>
+                </div>
+                <div class="fact-card">
+                    <div class="fact-emoji">🎨</div>
+                    <p>Les layers Docker sont comme des lasagnes : plus il y en a, plus c'est bon !</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="emoji-rain" id="emojiRain"></div>
+
+        <footer class="footer-fun">
+            <p class="pulse">Fait avec 💖 et beaucoup trop de café ☕</p>
+            <p class="marquee">
+                <span>🐳 INCEPTION PROJECT 2025 🐳 42 SCHOOL 🐳 DOCKER IS LOVE 🐳 DOCKER IS LIFE 🐳 </span>
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        const compliments = [
+            "🌟 Ton Dockerfile est tellement optimisé que même les conteneurs quantiques sont jaloux !",
+            "🎨 Ce FROM alpine est un chef-d'œuvre minimaliste !",
+            "🚀 Tes layers Docker sont plus propres qu'une salle blanche de la NASA !",
+            "💎 Ce COPY est d'une élégance rare, Picasso aurait pleuré de joie !",
+            "🎭 Ton EXPOSE est si bien choisi que les ports se battent pour être utilisés !",
+            "🏆 Ce RUN apk add est plus smooth qu'un smoothie à la mangue !",
+            "🌈 Ton WORKDIR est mieux organisé que la bibliothèque d'Alexandrie !",
+            "⚡ Ces ENV variables sont plus puissantes qu'un Super Saiyan niveau 9000 !",
+            "🎪 Ton docker-compose.yaml est un poème moderne !",
+            "🦄 Ce réseau Docker est plus magique qu'une licorne arc-en-ciel !",
+            "🍕 Tes volumes persistants sont plus fiables que la livraison de pizza un dimanche soir !",
+            "🎸 Ce CMD est plus rock'n'roll qu'un solo de guitare enflammé !",
+            "🧙 Ton .dockerignore est plus sage qu'un ancien druide celte !",
+            "🎯 Cette image est plus légère qu'une plume de colibri dopé à l'hélium !",
+            "🌮 Ton entrypoint.sh est plus savoureux qu'un taco cosmique !",
+            "🎨 Ce multi-stage build est une œuvre d'art contemporain !",
+            "🦸 Tes health checks sont plus vigilants qu'un super-héros sous caféine !",
+            "🎪 Cette orchestration est plus harmonieuse qu'un orchestre de chats siamois !",
+            "🌟 Ton Alpine Linux est si léger qu'il flotte dans l'air !",
+            "🎰 Ce build context est un jackpot de bonnes pratiques !",
+            "🚁 Tes conteneurs démarrent plus vite que la vitesse de la lumière !",
+            "🎨 Cette architecture est signée par un génie du containerland !",
+            "🦋 Ton restart policy est plus résilient qu'un phoenix en titane !"
+        ];
+
+        let counter = 0;
+        const btn = document.getElementById('generateBtn');
+        const complimentDiv = document.getElementById('compliment');
+        const counterDiv = document.getElementById('counter');
+        const emojiRain = document.getElementById('emojiRain');
+
+        btn.addEventListener('click', function() {
+            const randomCompliment = compliments[Math.floor(Math.random() * compliments.length)];
+            complimentDiv.textContent = randomCompliment;
+            complimentDiv.classList.remove('pop-in');
+            void complimentDiv.offsetWidth;
+            complimentDiv.classList.add('pop-in');
+
+            counter++;
+            counterDiv.textContent = counter;
+            counterDiv.classList.add('scale-up');
+            setTimeout(() => counterDiv.classList.remove('scale-up'), 300);
+
+            createEmojiExplosion();
+
+            btn.classList.add('button-press');
+            setTimeout(() => btn.classList.remove('button-press'), 200);
+        });
+
+        function createEmojiExplosion() {
+            const emojis = ['🎉', '⭐', '💫', '✨', '🌟', '💖', '🎊', '🎈', '🐳', '🚀'];
+            for(let i = 0; i < 15; i++) {
+                setTimeout(() => {
+                    const emoji = document.createElement('div');
+                    emoji.className = 'falling-emoji';
+                    emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+                    emoji.style.left = Math.random() * 100 + '%';
+                    emoji.style.animationDuration = (Math.random() * 2 + 2) + 's';
+                    emoji.style.fontSize = (Math.random() * 20 + 20) + 'px';
+                    emojiRain.appendChild(emoji);
+                    setTimeout(() => emoji.remove(), 4000);
+                }, i * 50);
+            }
+        }
+
+        setInterval(() => {
+            document.querySelectorAll('.light').forEach(light => {
+                light.style.opacity = Math.random();
+            });
+        }, 500);
+    </script>
+</body>
+</html>
