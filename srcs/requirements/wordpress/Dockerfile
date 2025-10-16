@@ -15,6 +15,7 @@ RUN apk update && apk add --no-cache \
     php82-iconv \
     php82-tokenizer \
     php82-redis \
+    php82-ctype \
     redis \
     wget \
     curl \

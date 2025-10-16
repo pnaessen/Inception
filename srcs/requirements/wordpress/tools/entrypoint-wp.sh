@@ -2,12 +2,6 @@
 
 cd /var/www/html
 
-if [ ! -f wp-config.php ]; then
-
-    wp core download --allow-root
-
-    sleep 10
-
     i=1
     while [ $i -le 30 ]; do
         if nc -z mariadb 3306; then
@@ -26,6 +20,14 @@ if [ ! -f wp-config.php ]; then
         sleep 2
         i=$((i + 1))
     done
+    
+if [ ! -f wp-config.php ]; then
+
+    wp core download --allow-root
+
+    sleep 10
+
+
 
     wp config create --allow-root \
         --dbname=$DB_NAME \

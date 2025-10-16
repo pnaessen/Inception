@@ -1,5 +1,5 @@
 all: setup
-	cd srcs && docker-compose up --build
+	cd srcs && docker-compose up --build -d
 
 setup:
 	@mkdir -p /home/$(USER)/data/data-db
