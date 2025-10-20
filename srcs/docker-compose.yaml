@@ -96,6 +96,7 @@ services:
       - /dev/disk/:/dev/disk:ro
     networks:
       - frontend
+      - backend
     restart: always
 
 networks:
