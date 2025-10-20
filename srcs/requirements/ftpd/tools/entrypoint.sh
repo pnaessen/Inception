@@ -16,6 +16,6 @@ echo "$FTP_USER:$FTP_PWD" | chpasswd
 
 chown -R "$FTP_USER:www-data" /home/$FTP_USER/ftp
 chmod -R 755 /home/$FTP_USER
-chmod -R 750 /home/$FTP_USER/ftp
+chmod -R 755 /home/$FTP_USER/ftp
 
 exec /usr/sbin/vsftpd /etc/vsftpd/vsftpd.conf

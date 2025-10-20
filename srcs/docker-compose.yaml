@@ -77,8 +77,9 @@ services:
       - .env
     ports:
       - "21:21"
+      - "30000-30009:30000-30009"
     volumes:
-      - ftp-data:/home/ftpuser/ftp
+      - www-data:/var/www/html:rw
     networks:
       - backend
     restart: unless-stopped
