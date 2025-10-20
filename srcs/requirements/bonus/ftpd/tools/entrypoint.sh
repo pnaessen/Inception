@@ -14,8 +14,6 @@ fi
 
 echo "$FTP_USER:$FTP_PWD" | chpasswd
 
-# chmod -R 755 /home/$FTP_USER
-# chmod -R 755 /home/$FTP_USER/ftp
 chown -R "$FTP_USER:www-data" /home/$FTP_USER
 chmod -R 775 /var/www/html
 

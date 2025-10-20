@@ -84,6 +84,20 @@ services:
       - backend
     restart: unless-stopped
 
+  cadvisor:
+    build:
+      context: requirements/bonus/cadvisor
+    container_name: cadvisor
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:ro
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+      - /dev/disk/:/dev/disk:ro
+    networks:
+      - frontend
+    restart: always
+
 networks:
   frontend:
     driver: bridge
