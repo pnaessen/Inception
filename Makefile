@@ -4,7 +4,6 @@ all: setup
 setup:
 	@mkdir -p /home/$(USER)/data/data-db
 	@mkdir -p /home/$(USER)/data/www-data
-	@mkdir -p /home/$(USER)/data/ftp-data
 
 up: setup
 	cd srcs && docker-compose up

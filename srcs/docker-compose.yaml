@@ -11,7 +11,7 @@ services:
     restart: unless-stopped
 
   redis:
-    build: ./requirements/redis
+    build: ./requirements/bonus/redis
     container_name: redis
     networks:
       - backend
@@ -54,7 +54,7 @@ services:
     restart: unless-stopped
 
   adminer:
-    build: ./requirements/adminer
+    build: ./requirements/bonus/adminer
     container_name: adminer
     depends_on:
       - mariadb
@@ -64,14 +64,14 @@ services:
     restart: unless-stopped
 
   static-site:
-    build: ./requirements/site
+    build: ./requirements/bonus/site
     container_name: static-site
     networks:
       - frontend
     restart: unless-stopped
 
   ftpd:
-    build: ./requirements/ftpd
+    build: ./requirements/bonus/ftpd
     container_name: ftpd
     env_file:
       - .env
@@ -102,9 +102,4 @@ volumes:
     driver_opts:
       type: none
       device: /home/${USER}/data/data-db
-      o: bind
-  ftp-data:
-    driver_opts:
-      type: local
-      device: /home/${USER}/data/ftp-data
       o: bind
