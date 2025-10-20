@@ -70,6 +70,19 @@ services:
       - frontend
     restart: unless-stopped
 
+  ftpd:
+    build: ./requirements/ftpd
+    container_name: ftpd
+    env_file:
+      - .env
+    ports:
+      - "21:21"
+    volumes:
+      - ftp-data:/home/ftpuser/ftp
+    networks:
+      - backend
+    restart: unless-stopped
+
 networks:
   frontend:
     driver: bridge
@@ -88,4 +101,9 @@ volumes:
     driver_opts:
       type: none
       device: /home/${USER}/data/data-db
+      o: bind
+  ftp-data:
+    driver_opts:
+      type: local
+      device: /home/${USER}/data/ftp-data
       o: bind

@@ -20,7 +20,7 @@ cd /var/www/html
         sleep 2
         i=$((i + 1))
     done
-    
+
 if [ ! -f wp-config.php ]; then
 
     wp core download --allow-root
@@ -51,7 +51,7 @@ if [ ! -f wp-config.php ]; then
     wp plugin install redis-cache --activate --allow-root
     wp config set WP_REDIS_HOST redis --allow-root
     wp config set WP_REDIS_PORT 6379 --raw --allow-root
-    # wp redis enable --allow-root
+    wp redis enable --allow-root
 fi
 
 chown -R www:www-data /var/www/html
