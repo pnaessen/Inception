@@ -11,7 +11,7 @@ services:
     restart: unless-stopped
 
   redis:
-    build: ./requirements/redis
+    build: ./requirements/bonus/redis
     container_name: redis
     networks:
       - backend
@@ -54,7 +54,7 @@ services:
     restart: unless-stopped
 
   adminer:
-    build: ./requirements/adminer
+    build: ./requirements/bonus/adminer
     container_name: adminer
     depends_on:
       - mariadb
@@ -64,11 +64,40 @@ services:
     restart: unless-stopped
 
   static-site:
-    build: ./requirements/site
+    build: ./requirements/bonus/site
     container_name: static-site
     networks:
       - frontend
     restart: unless-stopped
+
+  ftpd:
+    build: ./requirements/bonus/ftpd
+    container_name: ftpd
+    env_file:
+      - .env
+    ports:
+      - "21:21"
+      - "30000-30009:30000-30009"
+    volumes:
+      - www-data:/var/www/html:rw
+    networks:
+      - backend
+    restart: unless-stopped
+
+  cadvisor:
+    build:
+      context: requirements/bonus/cadvisor
+    container_name: cadvisor
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:ro
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+      - /dev/disk/:/dev/disk:ro
+    networks:
+      - frontend
+      - backend
+    restart: always
 
 networks:
   frontend:
